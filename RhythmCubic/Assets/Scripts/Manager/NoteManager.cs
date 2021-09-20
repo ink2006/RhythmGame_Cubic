@@ -12,11 +12,13 @@ public class NoteManager : MonoBehaviour
 
     TimingManager theTimingManager;
     EffectManager theEffectManager;
+    ComboManager theComboManager;
 
     void Start()
     {
         theEffectManager = FindObjectOfType<EffectManager>();
         theTimingManager = GetComponent<TimingManager>();
+        theComboManager = GetComponent<ComboManager>();
     }
     void Update()
     {
@@ -40,8 +42,12 @@ public class NoteManager : MonoBehaviour
         if (collision.CompareTag("Note"))
         {
             // hit시 image만 false로 바꾸기때문에 collider가 남아 miss effect를 연출하는 문제 해결
-            if(collision.GetComponent<Note>().GetNoteFlag())
+            if (collision.GetComponent<Note>().GetNoteFlag())
+            {
                 theEffectManager.JudgementEffect(4);
+                theComboManager.ResetCombo();
+            }
+
 
             theTimingManager.boxNoteList.Remove(collision.gameObject);
 
