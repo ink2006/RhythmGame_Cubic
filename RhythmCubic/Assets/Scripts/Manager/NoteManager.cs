@@ -9,9 +9,13 @@ public class NoteManager : MonoBehaviour
 
     [SerializeField] Transform tfNoteAppear = null; // 노트 생성위치
     [SerializeField] GameObject goNote = null; // prefab 변수
-    
 
-    // Update is called once per frame
+    TimingManager theTimingManager;
+
+    void Start()
+    {
+        theTimingManager = GetComponent<TimingManager>();
+    }
     void Update()
     {
         currentTime += Time.deltaTime;
@@ -20,12 +24,14 @@ public class NoteManager : MonoBehaviour
         {
             GameObject t_note = Instantiate(goNote, tfNoteAppear.position, Quaternion.identity);
             t_note.transform.SetParent(this.transform);
+            theTimingManager.boxNoteList.Add(t_note);
             currentTime -= 60d / bpm; // 0으로 초기화 하면 안되는 이유 : 17때문에 약간의 오차가 생김
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        theTimingManager.boxNoteList.Remove(collision.gameObject);
         Destroy(collision.gameObject);
     }
 

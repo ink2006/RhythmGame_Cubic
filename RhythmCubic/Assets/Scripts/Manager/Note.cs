@@ -6,9 +6,22 @@ public class Note : MonoBehaviour
 {
     public float noteSpeed = 400;
 
-    // Update is called once per frame
+    UnityEngine.UI.Image noteImage;
+
+    void Start()
+    {
+        noteImage = GetComponent<UnityEngine.UI.Image>();
+    }
+   
+   
+
     void Update()
     {
         transform.localPosition += Vector3.right * noteSpeed * Time.deltaTime;    
+    }
+
+    public void HideNote()
+    {
+        noteImage.enabled = false;
     }
 }
