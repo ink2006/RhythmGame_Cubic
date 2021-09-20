@@ -5,10 +5,10 @@ using UnityEngine;
 public class NoteManager : MonoBehaviour
 {
     public int bpm = 0;
-    double currentTime = 0d; // ¿ÀÂ÷ ÃÖ¼ÒÈ­
+    double currentTime = 0d; // ì˜¤ì°¨ ìµœì†Œí™”
 
-    [SerializeField] Transform tfNoteAppear = null; // ³ëÆ® »ı¼ºÀ§Ä¡
-    [SerializeField] GameObject goNote = null; // prefab º¯¼ö
+    [SerializeField] Transform tfNoteAppear = null; // ë…¸íŠ¸ ìƒì„±ìœ„ì¹˜
+    [SerializeField] GameObject goNote = null; // prefab ë³€ìˆ˜
 
     TimingManager theTimingManager;
     EffectManager theEffectManager;
@@ -27,7 +27,7 @@ public class NoteManager : MonoBehaviour
             GameObject t_note = Instantiate(goNote, tfNoteAppear.position, Quaternion.identity);
             t_note.transform.SetParent(this.transform);
             theTimingManager.boxNoteList.Add(t_note);
-            currentTime -= 60d / bpm; // 0À¸·Î ÃÊ±âÈ­ ÇÏ¸é ¾ÈµÇ´Â ÀÌÀ¯ : 17¶§¹®¿¡ ¾à°£ÀÇ ¿ÀÂ÷°¡ »ı±è
+            currentTime -= 60d / bpm; // 0ìœ¼ë¡œ ì´ˆê¸°í™” í•˜ë©´ ì•ˆë˜ëŠ” ì´ìœ  : 23ë•Œë¬¸ì— ì•½ê°„ì˜ ì˜¤ì°¨ê°€ ìƒê¹€
         }
     }
 
@@ -35,7 +35,7 @@ public class NoteManager : MonoBehaviour
     {
         if (collision.CompareTag("Note"))
         {
-            // hit½Ã image¸¸ false·Î ¹Ù²Ù±â¶§¹®¿¡ collider°¡ ³²¾Æ miss effect¸¦ ¿¬ÃâÇÏ´Â ¹®Á¦ ÇØ°á
+            // hitì‹œ imageë§Œ falseë¡œ ë°”ê¾¸ê¸°ë•Œë¬¸ì— colliderê°€ ë‚¨ì•„ miss effectë¥¼ ì—°ì¶œí•˜ëŠ” ë¬¸ì œ í•´ê²°
             if(collision.GetComponent<Note>().GetNoteFlag())
                 theEffectManager.JudgementEffect(4);
 
