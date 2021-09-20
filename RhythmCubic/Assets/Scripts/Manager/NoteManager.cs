@@ -11,9 +11,11 @@ public class NoteManager : MonoBehaviour
     [SerializeField] GameObject goNote = null; // prefab 변수
 
     TimingManager theTimingManager;
+    EffectManager theEffectManager;
 
     void Start()
     {
+        theEffectManager = FindObjectOfType<EffectManager>();
         theTimingManager = GetComponent<TimingManager>();
     }
     void Update()
@@ -31,8 +33,14 @@ public class NoteManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        theTimingManager.boxNoteList.Remove(collision.gameObject);
-        Destroy(collision.gameObject);
-    }
+        if (collision.CompareTag("Note"))
+        {
+            // hit시 image만 false로 바꾸기때문에 collider가 남아 miss effect를 연출하는 문제 해결
+            if(collision.GetComponent<Note>().GetNoteFlag())
+                theEffectManager.JudgementEffect(4);
 
+            theTimingManager.boxNoteList.Remove(collision.gameObject);
+            Destroy(collision.gameObject);
+        }    
+    }
 }

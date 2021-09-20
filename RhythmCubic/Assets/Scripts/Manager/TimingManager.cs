@@ -10,8 +10,12 @@ public class TimingManager : MonoBehaviour
     [SerializeField] RectTransform[] timingRect = null; // 판정 범위
     Vector2[] timingBoxs = null; // 실제 판정 최소 최대
 
+    EffectManager theEffect;
+
     void Start()
     {
+        theEffect = FindObjectOfType<EffectManager>();
+
         // 타이밍 박스 설정
         timingBoxs = new Vector2[timingRect.Length];
         for (int i = 0; i < timingRect.Length; i++)
@@ -37,13 +41,22 @@ public class TimingManager : MonoBehaviour
             {
                 if(timingBoxs[x].x <= t_notePosX && t_notePosX <= timingBoxs[x].y)
                 {
+                    //노트 제거
                     boxNoteList[i].GetComponent<Note>().HideNote();
                     boxNoteList.RemoveAt(i);
+
+                    //이펙트 연출
+                    if (x<timingBoxs.Length -1)  // good이상 판정시에만 이펙트
+                        theEffect.NoteHitEffect();
+
+                    theEffect.JudgementEffect(x);
+
                     Debug.Log("Hit" + x);
                     return;
                 }
             }
         }
+        theEffect.JudgementEffect(timingBoxs.Length); // 4
         Debug.Log("Miss");
     }
 }
