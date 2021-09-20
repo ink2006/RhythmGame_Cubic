@@ -11,10 +11,12 @@ public class TimingManager : MonoBehaviour
     Vector2[] timingBoxs = null; // 실제 판정 최소 최대
 
     EffectManager theEffect;
+    ScoreManager theScoreManager;
 
     void Start()
     {
         theEffect = FindObjectOfType<EffectManager>();
+        theScoreManager = FindObjectOfType<ScoreManager>();
 
         // 타이밍 박스 설정
         timingBoxs = new Vector2[timingRect.Length];
@@ -51,7 +53,9 @@ public class TimingManager : MonoBehaviour
 
                     theEffect.JudgementEffect(x);
 
+                    //점수 증가
                     Debug.Log("Hit" + x);
+                    theScoreManager.IncreaseScore(x);
                     return;
                 }
             }
