@@ -26,10 +26,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform realCube = null;
 
     TimingManager theTimingManager;
+    Camera theCam;
 
     void Start()
     {
         theTimingManager = FindObjectOfType<TimingManager>();
+        theCam = FindObjectOfType<Camera>();
     }
 
     void Update()
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(MoveCo());
         StartCoroutine(SpinCo());
         StartCoroutine(RecoilCo());
+        StartCoroutine(theCam.ZoomCam());
 
     }
 
