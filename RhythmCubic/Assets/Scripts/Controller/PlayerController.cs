@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static bool s_canPressKey = true;
+
     // 이동
     [SerializeField] float moveSpeed = 3;
     Vector3 dir = new Vector3();
-    Vector3 destPos = new Vector3();
+    public Vector3 destPos = new Vector3();
 
     //회전
     [SerializeField] float spinSpeed = 270; // 각도
@@ -38,8 +40,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W))
         {
-            if (canMove)
+            if (canMove && s_canPressKey)
             {
+                Calc();
+
                 if (theTimingManager.CheckTiming()) // return값이 반환됨
                 {
                     StartAction();
@@ -48,7 +52,7 @@ public class PlayerController : MonoBehaviour
         }    
     }
 
-    void StartAction()
+    void Calc()
     {
         //방향계산
         dir.Set(Input.GetAxisRaw("Vertical"), 0, Input.GetAxisRaw("Horizontal"));
@@ -61,6 +65,10 @@ public class PlayerController : MonoBehaviour
         fakeCube.RotateAround(transform.position, rotDir, spinSpeed);
         destRot = fakeCube.rotation;
 
+    }
+
+    void StartAction()
+    {
         StartCoroutine(MoveCo());
         StartCoroutine(SpinCo());
         StartCoroutine(RecoilCo());

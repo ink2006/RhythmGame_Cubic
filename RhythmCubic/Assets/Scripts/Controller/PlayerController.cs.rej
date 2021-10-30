@@ -1,0 +1,15 @@
+diff a/RhythmCubic/Assets/Scripts/Controller/PlayerController.cs b/RhythmCubic/Assets/Scripts/Controller/PlayerController.cs	(rejected hunks)
+@@ -4,10 +4,12 @@
+ 
+ public class PlayerController : MonoBehaviour
+ {
++    public static bool s_canPressKey = true;
++
+     // �̵�
+     [SerializeField] float moveSpeed = 3;
+     Vector3 dir = new Vector3();
+-    Vector3 destPos = new Vector3();
++    public Vector3 destPos = new Vector3();
+ 
+     //ȸ��
+     [SerializeField] float spinSpeed = 270; // ����

@@ -7,12 +7,13 @@ public class ComboManager : MonoBehaviour
     [SerializeField] GameObject goComboImage = null;
     [SerializeField] UnityEngine.UI.Text txtCombo = null;
 
+
     int currentCombo = 0;
 
     Animator myAnim;
     string animComboUp = "ComboUp";
 
-    private void Start()
+    void Start()
     {
         myAnim = GetComponent<Animator>();
         txtCombo.gameObject.SetActive(false);
